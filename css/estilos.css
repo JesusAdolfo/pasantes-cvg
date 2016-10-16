@@ -1,0 +1,1147 @@
+/*Consideraciones para quien desee leer los comentarios de este codigo
+Desarrollado por Jesus Adolfo Rodriguez
+Abril 2013.
+@AdolfoJesusR
+/
+
+/*propiedades del cuerpo de la pagina(body)*/
+
+*{
+	margin:0px;
+	padding:0px;
+}
+
+input{
+	border: none;
+}
+textarea{
+	border: none;
+}
+
+html,body{
+	
+}
+body{ 
+	background:url("../img/cardboard_flat.png") repeat; /*fondo (patron repetido) */
+	font-family: Tahoma, Geneva, sans-serif;
+	text-align: left;
+	margin-bottom: 50px;
+}	
+
+textarea {
+    resize: none;
+}
+/* para el pie de pagina que servira como menu*/
+#footer{
+	position: fixed;  /* fixed para que se mantenga abajo */
+	bottom: 0px;  /*separado 0 pixeles de abajo */
+	margin:0;  /*sin margenes */
+	padding:0; /*sin espacio interno (padding) */
+	left:0; /*separado 0 pixeles de la izquierda */
+	right:0;/*separado 0 pixeles de la derecha */
+	width: 100%; /*ancho del 100% para el menu/footer */
+	height: 40px; /* altura de 40 para el menu/footer */
+	text-shadow: 1px 1px 1px black; /*sombra del texto en el menu (para que el blanco contraste con el negro) */
+	border-top: 1px solid rgba(0,0,0,0.3); /*borde superior*/
+	background: rgba(0,0,0,0.25); /*fondo del menu/footer*/
+	background-image: url("../img/broken_noise.png");
+	box-shadow: inset 0 1px rgba(255,255,255, 0.3),inset 0 10px rgba(255,255,255, 0.2), inset 0 10px 20px rgba(255,255,255, 0.25), inset 0 -15px 30px rgba(0,0,0, 0.3) ;   /*4 diferentes sombras para hacer el efecto vidrioso en el footer*/
+}
+
+/*headers2 del footer*/
+/*seran titulos en los layouts*/
+#footer h2{
+	font-weight: normal; /*cambio el estilo de la fuente a normal*/
+	font-size: 16px; /*tamano 14*/
+	text-decoration:underline; /*decoracion: subrayado*/
+	color: #ddd; /*color*/
+	margin-top: 10px; /*10px de margen superior*/
+	margin-bottom: 5px; /* 5px de margen inferior*/
+	margin-left: 10px; /*10px de margen izquierdo*/
+}
+
+#footer h2:hover{
+	color: white;
+}
+
+/*parrafos en los layouts*/
+#footer p{
+	color:white; /*color blanco*/
+	font-size: 12px; /*tamano 12*/
+	padding:0px 10px; /* padding de 0px arriba y abajo. 10 a los lados */
+	margin: 10px 0px; /*margen de 10 arriba y abajo. 0 a los lados*/
+}
+
+/*imagenes en el footer*/
+#footer img{
+	border:none; /* quitarle el borde que pone automaticamente algunos navegadores */
+}
+
+/*elementos de lista en listas no ordenadas en el footer */
+#footer li ul{
+	list-style:none; /*quitar el simbolo que pone*/
+	padding: 0px; /*padding 0 en todos los lados*/
+	margin-bottom: 12px; /*12px de margen inferior*/
+}
+
+/*clase clear para limpiar una fila del layout y pasar a la siguiente*/
+/*crea un bloque hace un salto a la siguiente linea */
+.clear{
+	clear: both; /*limpia la linea*/
+	display: block; /*se muestra como un bloque*/
+	overflow: hidden; /*overflow oculto*/
+	visibility: hidden; /*visibilidad oculta*/
+	height: 0px; /*0 de alto*/
+	width: 0px; /* 0 de ancho */
+}
+
+/*para colocar borde blanco*/
+#footer .whiteBorder {
+	border: 1px solid white;  /*borde blanco solido de 1px*/
+}
+/*para posicionar imagen*/
+#footer .img_left{
+	float: left; /*posiciona a la izquierda*/
+	margin-right:10px; /*margen derecho de 10pixeles*/
+	width: 40px; /*Ancho de 40pixeles*/
+}
+#footer .black_box{
+	background: rgba(0,0,0,0.4); /*fondo negro con opacidad de 40%*/
+	padding: 0px 0px;  /*padding 5px en todos los lados*/
+	margin-top: 5px; /*margen inferior de 5pixeles*/
+	border-radius: 5px; /* para las esquinas redondeadas*/ 	
+}
+#footer .black_box{
+	text-align:center;
+	font-weight:bold;
+}
+/*para las notificaciones*/
+#footer #notifications{
+	float:right; /*las posiciona a la derecha del menu*/
+	width: auto; /*ancho automatico*/
+	margin: 5px 15px 0px; /*margenes de 5px arriba, 15px a los lados y 0px abajo*/
+	padding: 0px; /*padding de 0 pixeles*/
+	overflow: hidden; /*overflow oculto */
+}
+/*elementos de lista (notificaciones)*/
+#footer #notifications li{
+	margin-right: 12px; /*margen derecho 12 pixeles para que no se amontonen las notificaciones*/
+	float:left; /*posiciona las notificaciones a la izquierda*/
+	width: 24px;  /*ancho: cambiara de acuerdo al icono que use para las notificaciones */ 	
+	padding: 0x; /*padding de 0 pixeles en todos los lados*/
+	height: 32px; /*alto: cambiara de acuerdo al icono que use para las notificaciones*/ 
+	list-style:none; /*le quita el estilo a la lista*/
+}
+/*efecto de las notificaciones al hacer hover*/
+#footer #notifications li:hover{
+	margin-top: -1px; /*mueve el icono de la notificacion 1pixel hacia arriba*/
+}
+/*este span se usa para mostrar el contenido de las notifaciones*/
+a.notificationIcons span{
+	position: relative;
+	display:none; /*esta oculto por defecto*/
+	font-size:12px; /*tamano de la fuente de 12pixeles*/
+	color:white; /*color de la fuente: blanco*/
+	bottom:75px; /*posicionado 45pixeles alejado del fondo del navegador (el footer ocupa 40px)*/
+	width: 150px; /*150px de ancho*/
+	position: absolute; /*posicionado absolutamente*/
+	border-radius: 3px; /* esquinas redondeadas */
+	padding:5px; /*paddding 5 px en todos los lados*/
+	margin-left: -68px; /*se mueve este span a la izquierda colocando el margen negativo para dar efecto de una burbuja*/
+	margin-bottom:-24px;
+	background: rgba(23,47,70,1); /*fondo negro con opacidad del 40%*/
+	z-index: 100;
+}
+/*notificaciones en hover*/
+a.notificationIcons:hover span{
+	display:block; /*se muestra como bloque al hacer hover (estaba ocultado)*/
+}
+
+
+a.notificationIcons span:before{
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+	left: 85px;
+	bottom: -20px;
+	border: 10px solid;
+	border-color: rgba(23,47,70,1) transparent transparent rgba(23,47,70,1);
+	z-index: 0;
+}
+
+a.notificationIcons span:after{
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+	left: 65px;
+	bottom: -20px;
+	border: 10px solid;
+	border-color: rgba(23,47,70,1) rgba(23,47,70,1) transparent transparent ;
+	z-index: 0;
+}
+
+/*menu en el footer */
+#footer_menu {
+	margin:0px; /*margen de 0 en todos lso lados*/
+	padding:0px; /*padding de 0 en todos los lados*/
+	width:auto; /*ancho automatico (dependera de cuan larga sea la palabra)*/
+}
+/*elementos de lista en menu*/
+#footer_menu li{
+	list-style:none; /*se quita el estilo por defecto en la listas*/
+	float:left; /*se posiciona el menu a la izquierda*/
+	font-size:12px; /*fuente de 12 pixeles*/
+	padding: 12px 14px 14px 14px; /*padding en el siguiente orden: arriba - derecha - abajo - izquierda*/
+	border-right: 1px solid rgba(0,0,0,0.4); /* borde para separar los elementos del menu de 1px solid a la derecha con opacidad al 40%*/
+	background: rgba(0,0,0,0.1); /* el fondo de cada elemento del menu sera negro con opacidad al 10% (en realidad es mas ya que se acumula con lo que tiene debajo*/
+}
+
+#footer_menu li:hover{
+	background: rgba(0,0,0,0.3); /*el elemento del menu se hace mas oscuro en hover*/
+}
+/*texto en cada elemento del menu*/
+#footer_menu li a{ 
+	display:block; /*se muestra como bloque*/
+	color: #cccccc; /*color gris claro*/
+	text-decoration:none; /*se quita la decoracion por defecto en los links*/
+}
+#footer_menu li a:hover{
+	color:white; /*al hacer hover se hace de color blanco para crear efecto de ilumnacion*/
+}
+/*boton de home(inicio)*/
+#footer_menu .homeButton {
+	padding: 5px 8px 0px 14px; /*depende de la imagen que se utiliza en home*/
+	border:none; /*se quitan los bordes*/
+	background:none; /*sin fondo*/
+} 
+/*link en el boton de home*/
+#footer_menu .homeButton a{
+	background: url("../img/home.png") top left no-repeat; /*se coloca la imagen como link*/
+	width:36px;	/*se pone ancho determinado para el link*/
+	height:30px; /*se pone altura determinada para el link*/
+}
+
+#footer_menu .homeButton:hover{
+	background:none; /*el fondo del boton en home queda igual en hover*/
+}
+
+#footer_menu .homeButton a:hover{
+margin-top: -1px; /*mueve el icono de home 1pixel hacia arriba*/
+}
+
+/*Menu desplegable*/
+#footer_menu li ul.dropup{
+	display:none; /*el menu se oculta por defecto*/
+}
+/*Menu desplegable en hover*/
+#footer_menu li:hover ul.dropup{
+	display:block; /*se muestra el desplegable*/
+	position:absolute; /*posicionamiento absoluto*/
+	margin: 0 0 0 -15px; /*se mueve 15px a la izquierda*/
+	bottom:40px; /*40px separado de abajo para parecer que se despliega del footer*/
+	border: 1px solid #ddd;
+	border-bottom:none; /*se quita el borde inferior para que parezca que esta unido con el footer*/
+	background:rgba(23,47,70,1); /*fondo azul*/
+	border-radius: 7px 7px 0px 0px; /*esquinas redondeadas unicamente en la parte superior*/
+}
+
+/*elementos del menu desplegable*/
+#footer_menu li:hover li{
+	float:none; 
+	background:none; /*sin fondo para evitar herencia de propiedad*/
+	border:none; /*sin borde para evitar herencia de la propiedad*/
+	border-bottom: 1px solid #ededed; /*cada elemento de lmenu tiene un borde inferior como separaciones*/
+	padding:12px 10px 12px 10px; /*espacio alrededor de cada elemento del menu*/
+}
+#footer_menu li:hover li:last-child{
+	border-bottom: none;
+}
+
+
+/*links del menu desplegable*/
+#footer_menu li:hover a{
+	color: #aaaaaa; /*color gris oscuro*/
+}	
+/*links del menu desplegable en hover*/
+#footer_menu li:hover a:hover{
+	color:#eeeeee;/*se cambia color a blanco para crear efecto de iluminacion*/
+}
+
+
+#footer_menu li:hover a.headerLinks:hover{
+	color: white;
+	cursor: pointer;
+}
+ /*List links */
+#footer_menu li:hover a.listLinks{
+	font-size:12x;
+	color: #aaa;
+	margin-left:10px;
+}
+#footer_menu li:hover a.listLinks:hover{
+	color: white;
+	cursor: pointer;
+}
+
+#footer_menu .right{
+	float:right;
+	right: 0px;
+	margin-right:2px;
+	border-right:none;
+	border-left: 1px solid rgba(0,0,0,0.3);
+}
+
+/*Layouts (disposicion de las columnas en el menu)*/
+/**/
+#footer .one_column_layout,
+#footer .two_column_layout,
+#footer .three_column_layout{
+	margin:4px;
+	position: absolute;
+	padding-bottom:10px;
+	display:none;
+	text-align:left;
+}
+
+/*Ancho total de cada layout */
+#footer .one_column_layout{width: 140px;}
+#footer .two_column_layout{width: 280px;}
+#footer .three_column_layout{width: 440px;}
+
+/*Mostrar drop-up menus en hover*/
+#footer_menu li:hover .one_column_layout,
+#footer_menu li:hover .two_column_layout,
+#footer_menu li:hover .three_column_layout{
+	display:block;
+	position:absolute;
+	margin: 0 0 0 -15px;
+	bottom: 40px;
+	background:rgba(23,47,70,1);
+	border-radius: 7px 7px 0px 0px;
+	border: 1px solid #ddd;
+	border-bottom: none;
+}
+
+
+/*propiedades que tienen todos las columnas (asi ocupen 1, 2 o 3 espacios)*/
+#footer .col_1,
+#footer .col_2,
+#footer .col_3 {
+	display: inline;  /*Para colocar varias columnas en una misma fila*/
+	float: left; /*alinea las columnas a la izquierda*/
+	position: relative; /*posiciona las columnas en relacion a las otras*/
+	margin-left:5px; /* 5px de margen a la izq*/
+	margin-right:5px; /*5px de margen a la der*/
+}
+
+/*se determina el ancho usable de cada tipo de layout. sera 10px menos debido a 5px de margen a los lados*/
+#footer .col_1{ width:130px;} /*ancho usable de una columna de 1 fila */
+#footer .col_2{ width:290px;} /*ancho usable de una columna de 2 fila */
+#footer .col_3{ width:410px;} /*ancho usable de una columna de 3 fila */
+
+
+/* CSS de la barra superior */
+#topbar{
+	position: relative;  /*para que se mantenga arriba */
+	top: 0px;  /*separado 0 pixeles de abajo */
+	margin:0px;  /*sin margenes */
+	padding:0px; /*sin espacio interno (padding) */
+	left:0; /*separado 0 pixeles de la izquierda */
+	right:0;/*separado 0 pixeles de la derecha */
+	width: 100%; /*ancho del 100% para el menu/footer */
+	height: 40px; /* altura de 40 para el menu/footer */
+	font-family: Tahoma; /* tipo de fuente */
+	text-shadow: 1px 1px 1px black; /*sombra del texto en el menu (para que el blanco contraste con el negro) */
+	border-bottom: 1px solid rgba(0,0,0,0.5); /*borde superior*/
+	background-image: url("../img/broken_noise.png");
+	box-shadow: inset 0px -1px rgba(255,255,255, 0.4), inset 0 -10px 10px rgba(255,255,255, 0.25), inset 0 -15px 30px rgba(0,0,0, 0.3) ;   /*4 diferentes sombras para hacer el efecto vidrioso en el footer*/
+}
+
+/*menu en el footer */
+#topbar_menu{
+	margin:0px; /*margen de 0 en todos lso lados*/
+	padding:0px; /*padding de 0 en todos los lados*/
+	width:auto; /*ancho automatico (dependera de cuan larga sea la palabra)*/
+}
+
+#topbar #titulo1{
+	font-size: 14px;
+	color: white;
+}
+#topbar_menu li{
+	font-size: 14px;
+	color: #ccc;
+	list-style:none; /*se quita el estilo por defecto en la listas*/
+	float:left; /*se posiciona el menu a la izquierda*/
+	font-size:12px; /*fuente de 12 pixeles*/
+	padding: 12px 14px 14px 14px; /*padding en el siguiente orden: arriba - derecha - abajo - izquierda*/
+}
+#topbar_menu li a{
+	color:white;
+	text-decoration:none;
+
+}
+#topbar_menu li a:hover{
+	text-shadow: 1px 0px 5px rgba(255,255,255,1);
+}
+
+#topbar .bienvenida{
+	font-size:12px;
+	margin-right:10px;
+	margin-top:10px;
+	color:#ccc;
+}
+#topbar .bienvenida:hover{
+	color:white;
+}
+#topbar .right{
+	float:right;
+}
+#topbar #logo{
+	float:left;
+	width:40px;
+	height:10px;
+	margin-top:3px;
+	background:url("../img/cvglogo.png") top left no-repeat;
+	/*margin-left:	 15px;*/
+}
+#topbar #logo:hover{
+	background:url("../img/cvglogo2.png") top left no-repeat;
+}
+
+p img{
+	border-radius: 5px; /*para redondear las imagenes*/
+}
+
+.center{
+	text-align:center; /* para centrar */
+}
+
+
+#login_div{
+	text-align:center;
+	color:white;
+	width:250px;
+	position:absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: -125px;
+	margin-top: -150px;
+	padding: 0px 10px;
+	background-image: url(../img/broken_noise.png);
+	border-radius:5px;
+	box-shadow: 0px 0px 3px #ccc;
+}
+#login_div:hover{
+	box-shadow: 0px 0px 6px white;
+}
+#login_div div{
+	margin-bottom:10px;
+	display: block;
+}
+#login_div div:last-child{
+	margin-bottom:15px;
+}
+#login_div h2{
+	color:#333;
+	text-decoration:none;
+	font-size:24px;
+	padding:0px;
+	margin:0px;
+	padding-top:5px;
+	padding-bottom:5px;
+}
+.whitebg{
+	text-align: center;
+	color: #606060;
+	text-shadow: 0px 2px 5px rgba(0,0,0,.3);
+	border: solid 1px #b7b7b7;
+	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ededed));
+	background: -moz-linear-gradient(top,  #fff,  #ededed);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed');
+	border-radius: 5px;
+	margin-top: 10px;
+}
+
+
+#login_div span{
+	text-align:left;
+	width:300px;
+	float:left;
+	padding-top:7px;
+}
+
+input:hover{
+   box-shadow: 0px 0px 3px #fff;
+}
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
+input[type=checkbox] {
+	visibility: hidden;
+}
+
+#login_div .user{
+	background-image:url(../img/profileImage2.png), -webkit-gradient(linear, left top, left bottom, from(#fff), to(#B8B8B8));;
+	background-image: url("../img/profileImage2.png"), -moz-linear-gradient(top,  #fff,  #B8B8B8);
+  	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#B8B8B8');
+	background-repeat: no-repeat;
+	background-position: 1% 50%;
+	padding: 8px 0px;
+    padding-left:40px;
+    height:18px;
+	margin-top:5px;
+	border-radius:5px;
+}
+#login_div input[type=password] {
+	background-image:url(../img/lock2.png), -webkit-gradient(linear, left top, left bottom, from(#fff), to(#B8B8B8));;
+	background-image: url("../img/lock2.png"), -moz-linear-gradient(top,  #fff,  #B8B8B8);
+  	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#B8B8B8');
+	background-repeat: no-repeat;
+	background-position: 1% 50%;
+	padding: 8px 0px;
+    padding-left:40px;
+    height:18px;
+	margin-top:5px;
+	border-radius:5px;
+}
+
+#login_div button{
+	margin-top: 15px;
+}
+
+#login_div a{
+	color: white;
+}
+#login_div a:hover{
+	font-size: 18px;
+}
+/*Para el boton de las formas*/
+.button {
+	display: inline-block;
+	outline: none;
+	cursor: pointer;
+	text-align: center;
+	height: 50px;
+	text-decoration: none;
+	font: 14px/100% Tahoma, Helvetica, sans-serif;
+	padding: 10px 15px;
+	margin: 0 auto;
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+	-webkit-border-radius: .5em; 
+	-moz-border-radius: .5em;
+	border-radius: .5em;		
+}
+.button:hover {
+	text-decoration: none;
+}
+.button:active {
+	position: relative;
+	top: 1px;
+	box-shadow: inset -1px -1px 5px 2px #888;
+}
+.button:disabled{
+	color: white;
+	box-shadow: inset -50px -50px 10px 10px #888;
+}
+
+/* white */
+.white{
+	color: #606060;
+	border: solid 1px #b7b7b7;
+	background: #fff;
+	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ededed));
+	background: -moz-linear-gradient(top,  #fff,  #ededed);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed');
+}
+.white:hover input[type="button"] {
+	background: #ededed;
+	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#dcdcdc));
+	background: -moz-linear-gradient(top,  #fff,  #dcdcdc);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#dcdcdc');
+}
+.white:active input[type="button"] {
+	color: #999;
+	background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#fff));
+	background: -moz-linear-gradient(top,  #ededed,  #fff);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#ffffff');
+}
+
+/*general para todos los formularios*/
+.formss{
+	display: block;
+	color:black;
+	margin-left: 300px;
+	 -moz-box-shadow: 1px 5px 5px #222;
+    -webkit-box-shadow: 1px 5px 5px #222;
+    box-shadow: 1px 5px 5px #222;
+    -moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	overflow: hidden; /*Para que se vea el fondo de los formularios*/
+	zoom:1;
+	border: 1px solid white;
+}	
+
+#agregar_instituto_div{
+	width:420px;
+	margin: 50px auto;
+}
+
+.formss label{
+	color: white;
+	text-align: left;
+	margin-bottom: 2px;
+	float:left;
+	display: block;
+	width: 100%;
+}
+.formss #avaliability{
+	margin-top: 1px;
+	margin-left: 25px;
+	width: 300px;
+}
+.formss #button_div{
+	clear:both;
+	height: 60px;
+	width: 100%;
+    margin-top:5px;
+    padding-top: 10px;
+	text-align:center;
+}
+
+/** agregar.php */
+/*formulario de agregar*/
+#agregar_div{
+	display: block;
+	margin: 0 auto;
+	margin-top:40px;
+	color: white;
+	font-size:14px;
+	width: 800px;
+	padding: 0px;
+}
+
+#agregar_div #center{
+	display: block;
+	margin: 0 auto;
+	margin-right: -40px;
+}
+#center *{
+}
+
+
+
+#agregar_div label{
+	display: inline;
+	padding: 7px 10px;
+	width: 44%;
+	margin-left:15px;
+	margin-top: 15px;
+}
+.widearea{
+	display: block;
+	border-radius:5px;
+	padding: 7px 10px;
+	padding-right: 40px;
+	width: 80%;
+	margin-left: 15px;
+
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#B8B8B8));;
+	background-image: -moz-linear-gradient(top,  #fff,  #B8B8B8);
+  	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#B8B8B8');
+}
+.notsowidearea{
+	display: inline;
+	border-radius:5px;
+	padding: 7px 10px;
+	width: 45%;
+	margin-left: 15px;
+
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#B8B8B8));;
+	background-image: -moz-linear-gradient(top,  #fff,  #B8B8B8);
+  	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#B8B8B8');
+}
+
+#cedula{
+	margin-top: 25px;
+	margin-left: -50px;
+}
+.cedulaarea{
+	width: 70px;
+	margin-left: -40px;
+	margin-right: 20px;
+}
+.small{
+	margin-bottom: 20px;
+	font-size: 16px;
+	text-decoration: underline;
+}
+
+#agregar_div textarea{
+	margin-left: 10px;
+	padding: 5px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#B8B8B8));;
+	background-image: -moz-linear-gradient(top,  #fff,  #B8B8B8);
+  	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#B8B8B8');
+}
+
+#agregar_div select{
+	display: inline-block;
+	padding: 5px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	border:none;
+    width: 47%;
+    margin-left: 15px;
+    -webkit-appearance: none;
+    background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#B8B8B8));;
+	background: -moz-linear-gradient(top,  #fff,  #B8B8B8);
+  	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#B8B8B8');
+}
+
+#agregar_div .blood{
+	width: 80px;
+	margin-right: 20px;
+}
+
+#agregar_div .fila{
+	display: block;
+	margin: 0 auto;
+	text-align: center;
+	margin-top: 55px;
+	margin-bottom: 20px;
+}
+
+.fechas{
+	display: inline;
+}
+.row{
+	padding:5px;
+	margin-top: 5px;
+	margin-left: 15px;
+	width: 90%;
+}
+
+.formss .row:nth-child(2){
+	margin-bottom: 0px;
+	margin-top: 1px;
+}
+
+.row div{
+	width: 100%;
+}
+
+/*Coloca fondo rojo o negro a los campos de los formularios*/
+.warning{
+	background-image:url(../img/error2.png), -webkit-gradient(linear, left top, left bottom, from(#fff), to(#B8B8B8));;
+	background-image: url("../img/error2.png"), -moz-linear-gradient(top,  #fff,  #B8B8B8);
+  	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#B8B8B8');
+	background-repeat: no-repeat;
+	background-position: 99% 50%;
+}
+.good{	
+	background-image:url(../img/ok2.png) , -webkit-gradient(linear, left top, left bottom, from(#fff), to(#B8B8B8));;
+	background-image: url("../img/ok2.png"), -moz-linear-gradient(top,  #fff, #B8B8B8);
+  	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#B8B8B8');
+	background-repeat: no-repeat;
+	background-position: 99% 50%;
+}
+
+#advertencias ul{
+	list-style: circle;
+	padding: 0px;
+	margin: 0px;
+	margin-left: 20px;
+	text-shadow: 0px 0px 1px rgba(255,255,255,1);
+}
+#advertencias ul li{
+	color: white;
+	padding: 0px;
+	margin: 0px;
+}
+
+
+/* Tablas */
+table{
+	border-collapse: collapse;
+}
+.tablas{
+	display: block;
+	margin: 0 auto;
+	margin-top: 10px;
+	moz-box-shadow:3px 2px 7px #000;
+    -webkit-box-shadow:3px 2px 7px #000;
+    box-shadow:3px 2px 7px #000;
+}
+
+.tablas thead th:first-child{
+
+	margin: 0px;
+}
+
+.tablas thead th:last-child{
+
+	margin: 0px;
+}
+
+.tablas tfoot{
+	background: rgba(192,80,77,1);
+	color: white;
+}
+.tablas tfoot td{
+	font-style: normal;
+}
+
+
+.tablas th{
+	padding: 8px;
+	color: white;
+	background: rgba(192,80,77,1);
+	text-align: left;
+}
+#tab_ev tr th{
+	text-align:center;
+}
+#tab_ev {
+	text-align:center;
+	margin-top:30px;
+}
+.tablas tbody tr{
+ 	border-bottom: 1px solid white;
+ 	margin: 0px;
+
+}
+.tablas td{
+	padding: 10px;
+	margin: 0px;
+	font-size: 13px;
+}
+.tablas tbody tr:nth-child(odd){
+	background:  rgba(230,185,184,1);
+	
+}
+.tablas tbody tr:nth-child(even){
+	background:  rgba(224,250,220,1);
+}
+
+.tablas a{
+	display: block;
+	margin: 0 auto;
+	text-align: center;
+}
+
+/*Tooltip*/
+
+.tooltip{
+	margin:8px;
+	padding:8px;
+	border:1px solid #ddd;
+	position: absolute;
+	z-index: 2;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;	
+	color: #ddd;
+	background: rgba(192,80,77,1);
+
+}
+
+/* ficha de usuario */
+
+#user_div{
+	position: relative;
+	display: block;
+	width: 30%;
+	margin: 0 auto;
+	margin-top: 100px;
+	background:rgba(23,47,70,1);
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;	
+	border: 1px solid white;
+	padding: 10px;
+	color: white;
+}
+
+#user_div #le_div{
+	position: relative;
+	margin: 0 auto;
+	margin-top: 30px;
+	height: 75%;
+	width: 300px;
+	text-align: center;
+	padding: 0px;
+}
+
+#user_div #le_div p{
+	margin-bottom: 10px;
+	padding: 10px;
+	padding-top: 10px;
+}
+#user_div #le_div p span{
+	margin-top: 20px;
+}
+
+#user_div #le_div input[type="text"], #user_div #le_div input[type="password"]{
+	float: right;
+	margin-bottom: 10px;
+	margin-top:-7px;
+}
+#user_div #le_div input[type="submit"]{
+	margin: 0 auto;
+}
+#ficha *{
+	margin: 0px;
+	padding: 0px;	
+}
+
+#ficha{
+	display: block;
+	margin: 0 auto;
+	margin-top:30px;
+	text-align:center;
+	border: 2px solid white;
+	width:60%;
+	color: white;
+	border-radius: 5px; /* para las esquinas redondeadas*/ 
+}
+
+
+#ficha table{
+	color:black;
+	display:block;
+	margin: 0 auto;
+	margin-bottom: 20px;
+}
+
+
+#ficha table th{
+	padding: 5px;
+	text-align:center;
+}
+
+#ficha table tfoot td{
+	padding: 5px;
+}
+
+#ficha .ficha_row{
+	margin-bottom:20px;
+}
+
+#ficha .ficha_row a{
+	text-decoration:none;
+}
+
+#ficha .ficha_row input[type="submit"]{
+	padding:10px;
+	margin-right:20px;
+	padding-right:20px;
+	padding-left:20px;
+}
+
+#ficha .ficha_row span{
+	margin-right: 50px;
+}
+
+#ficha .ficha_row strong{
+	text-shadow:3px 2px 2px rgba(0,0,0,1);
+}
+
+.gradient{
+	background: rgb(167,207,223); /* Old browsers */
+	background: -moz-linear-gradient(top, rgba(167,207,223,1) 0%, rgba(9,37,61,1) 0%, rgba(118,138,155,1) 56%, rgba(24,45,66,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(167,207,223,1)), color-stop(0%,rgba(9,37,61,1)), color-stop(56%,rgba(118,138,155,1)), color-stop(100%,rgba(24,45,66,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(167,207,223,1) 0%,rgba(9,37,61,1) 0%,rgba(118,138,155,1) 56%,rgba(24,45,66,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(167,207,223,1) 0%,rgba(9,37,61,1) 0%,rgba(118,138,155,1) 56%,rgba(24,45,66,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, rgba(167,207,223,1) 0%,rgba(9,37,61,1) 0%,rgba(118,138,155,1) 56%,rgba(24,45,66,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom, rgba(167,207,223,1) 0%,rgba(9,37,61,1) 0%,rgba(118,138,155,1) 56%,rgba(24,45,66,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a7cfdf', endColorstr='#182d42',GradientType=0 ); /* IE6-9 */
+}
+
+#regresar{
+	color: white;
+}
+#regresar:visited{
+	color: white;
+}
+#regresar:hover{
+	color: white;
+	font-size:15px;
+}
+#regresar:active{
+	color: white;
+	font-size:16px;
+}
+
+#resultado_div{
+	position:fixed;
+	bottom: 60px;
+	color:white;
+	width:100%;
+	border:1px solid black;
+	text-align:center;
+	padding: 10px;
+	margin-top:35px;
+	background: rgba(192,80,77,1);
+}
+#weeh{
+	text-decoration: underline;
+	text-shadow:1px 1px 1px rgba(0,0,0,1);
+}
+
+#niveles td{
+	border: 1px solid white;
+}
+
+.select_fecha{
+	padding: 5px;
+}
+
+#relaciones_div{
+	display: block;
+	width: 80%;
+	margin: 0px auto;
+	margin-top: 20px;
+	text-align:center;
+}
+
+#relacion_div select{
+	margin-right: 30px;
+}
+
+#total{
+	font-size:20px;
+}
+
+.whiteLetters{
+	color: white;
+}
+.whiteLetters:visited{
+	color: white;
+}
+.whiteLetters:hover{
+	font-size:14px;
+}
+
+#x-wrapper{
+	text-align:center;
+}
+#editar_niveles_div{
+	color:white;
+	padding: 10px;
+	text-align:center;
+	display:inline-block;
+	margin: 0 auto;
+}
+
+#editar_niveles_div input{
+	margin-top: 10px;
+	width: 100px;
+}
+#editar_niveles_div span{
+	margin-right:90px;
+	padding: 5px;
+}
+
+#agregar_factor_div{
+	color:white;
+	padding: 10px;
+	text-align:center;
+	display:inline-block;
+	margin: 0 auto;
+	width:500px;
+}
+
+#agregar_factor_div #posicion{
+	width:20px;
+	margin-left:5px;
+	margin-right: 20px;
+}
+
+#agregar_factor_div select{
+	margin-left:5px;
+	padding:10px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	border:none;
+    -webkit-appearance: none;
+    background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#B8B8B8));;
+	background: -moz-linear-gradient(top,  #fff,  #B8B8B8);
+  	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#B8B8B8');
+}
+
+#editar_fac_div{
+	color:white;
+	padding: 10px;
+	text-align:center;
+	display:inline-block;
+	margin: 0 auto;
+}
+
+#editar_fac_div input{
+	margin-top:10px;
+	width:500px;
+}
+#editar_fac_div input[type="number"]{
+	width:20px;
+}
+#editar_fac_div input[type="submit"]{
+	width:100px;
+}
+#editar_fac_div select{
+	width:160px;
+	padding: 10px;
+	margin-left:10px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	border:none;
+    -webkit-appearance: none;
+    background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#B8B8B8));;
+	background: -moz-linear-gradient(top,  #fff,  #B8B8B8);
+  	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#B8B8B8');
+}
+
+#indicadores_div {
+	margin-top:20px;
+	width:60%;
+	color: white;
+	text-align:center;
+	margin: 0 auto;
+	border-radius:5px;
+	border: 2px solid white;
+}
+
+#indicadores_div input [type="text"]{
+	width:100px;
+}
+
+#indicadores_div span{
+	display:block;
+	margin-bottom:20px;
+	text-align:center;
+}
+
+#indicadores_div img{
+	border-radius:5px;
+}
+
+#indicadores_div td.upper_line { border-top:solid 1px white; }
+#indicadores_div table.fraction { font-weight: bold; text-align: center; vertical-align: middle; margin: 0 auto; margin-top:0.5em; margin-bottom:0.5em; line-height: 2em; }
+
+.redback{
+		background: rgba(192,80,77,1);
+		padding:10px;
+		border-radius:5px;
+}
